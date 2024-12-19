@@ -30,7 +30,7 @@ abstract class IcebergV2WriteTest(
         destinationCleaner,
         IcebergExpectedRecordMapper,
         isStreamSchemaRetroactive = true,
-        supportsDedup = false,
+        supportsDedup = true,
         stringifySchemalessObjects = true,
         promoteUnionToObject = true,
         preserveUndeclaredFields = false,
@@ -63,6 +63,12 @@ abstract class IcebergV2WriteTest(
     @Disabled("This is expected (dest-iceberg-v2 doesn't yet support schema evolution)")
     override fun testAppendSchemaEvolution() {
         super.testAppendSchemaEvolution()
+    }
+
+    @Test
+    @Disabled("This is expected (dest-iceberg-v2 doesn't yet support schema evolution)")
+    override fun testDedupChangeCursor() {
+        super.testDedupChangeCursor()
     }
 }
 
