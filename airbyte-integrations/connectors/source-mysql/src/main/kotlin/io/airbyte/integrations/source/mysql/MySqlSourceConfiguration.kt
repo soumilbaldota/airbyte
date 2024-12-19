@@ -122,7 +122,7 @@ class MySqlSourceConfigurationFactory @Inject constructor(val featureFlags: Set<
                 "Connection from Airbyte Cloud requires SSL encryption or an SSH tunnel."
             )
         }
-        val sslJdbcProperties: Map<String, String> = fromEncryptionSpec(pojo.getEncryptionValue())
+        val sslJdbcProperties: Map<String, String> = fromEncryptionSpec(pojo.getEncryptionValue()!!)
         jdbcProperties.putAll(sslJdbcProperties)
 
         // Configure cursor.

@@ -369,14 +369,7 @@
         "type": "string"
       }
     },
-    "required": [
-      "host",
-      "port",
-      "database",
-      "username",
-      "replication_method",
-      "ssl_mode"
-    ],
+    "required": ["host", "port", "database", "username", "replication_method"],
     "title": "MySQL Source Spec",
     "type": "object"
   },

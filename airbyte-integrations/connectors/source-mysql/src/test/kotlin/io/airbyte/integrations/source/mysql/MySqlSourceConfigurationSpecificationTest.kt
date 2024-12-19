@@ -32,7 +32,7 @@ class MySqlSourceConfigurationSpecificationTest {
         Assertions.assertEquals("FOO", pojo.username)
         Assertions.assertEquals("BAR", pojo.password)
         Assertions.assertEquals("SYSTEM", pojo.database)
-        val encryption: EncryptionSpecification = pojo.getEncryptionValue()
+        val encryption: EncryptionSpecification = pojo.getEncryptionValue()!!
         Assertions.assertTrue(encryption is EncryptionPreferred, encryption::class.toString())
         val tunnelMethod: SshTunnelMethodConfiguration? = pojo.getTunnelMethodValue()
         Assertions.assertTrue(

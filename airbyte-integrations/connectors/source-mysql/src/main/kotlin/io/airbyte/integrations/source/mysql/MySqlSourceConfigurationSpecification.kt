@@ -101,7 +101,7 @@ class MySqlSourceConfigurationSpecification : ConfigurationSpecification() {
         "The encryption method with is used when communicating with the database.",
     )
     @JsonSchemaInject(json = """{"order":8}""")
-    fun getEncryptionValue(): EncryptionSpecification = encryptionJson ?: encryption.asEncryption()
+    fun getEncryptionValue(): EncryptionSpecification? = encryptionJson ?: encryption.asEncryption()
 
     @JsonIgnore
     @ConfigurationBuilder(configurationPrefix = "tunnel_method")
