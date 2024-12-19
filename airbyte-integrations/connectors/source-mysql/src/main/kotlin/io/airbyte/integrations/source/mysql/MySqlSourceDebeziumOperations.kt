@@ -422,7 +422,10 @@ class MySqlSourceDebeziumOperations(
                 .withDatabase("include.list", databaseName)
                 .withOffset()
                 .withSchemaHistory()
-                .withConverters(MySqlSourceCdcBooleanConverter::class, MySqlSourceCdcTemporalConverter::class)
+                .withConverters(
+                    MySqlSourceCdcBooleanConverter::class,
+                    MySqlSourceCdcTemporalConverter::class
+                )
 
         val serverTimezone: String? =
             (configuration.incrementalConfiguration as CdcIncrementalConfiguration).serverTimezone
