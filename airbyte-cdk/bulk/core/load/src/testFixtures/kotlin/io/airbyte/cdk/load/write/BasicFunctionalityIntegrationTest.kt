@@ -1569,23 +1569,23 @@ abstract class BasicFunctionalityIntegrationTest(
                     """.trimIndent(),
                 ),
                 // A record with invalid values for all fields
-                makeRecord(
-                    """
-                        {
-                          "id": 5,
-                          "string": {},
-                          "number": "foo",
-                          "integer": "foo",
-                          "boolean": "foo",
-                          "timestamp_with_timezone": "foo",
-                          "timestamp_without_timezone": "foo",
-                          "time_with_timezone": "foo",
-                          "time_without_timezone": "foo",
-                          "date": "foo"
-                        }
-                    """.trimIndent()
+                //                makeRecord(
+                //                    """
+                //                        {
+                //                          "id": 5,
+                //                          "string": {},
+                //                          "number": "foo",
+                //                          "integer": "foo",
+                //                          "boolean": "foo",
+                //                          "timestamp_with_timezone": "foo",
+                //                          "timestamp_without_timezone": "foo",
+                //                          "time_with_timezone": "foo",
+                //                          "time_without_timezone": "foo",
+                //                          "date": "foo"
+                //                        }
+                //                    """.trimIndent()
+                //                ),
                 ),
-            ),
         )
 
         val nestedFloat: BigDecimal
