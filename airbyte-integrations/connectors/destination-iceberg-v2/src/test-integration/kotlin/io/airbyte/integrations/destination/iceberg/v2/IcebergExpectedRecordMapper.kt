@@ -35,10 +35,12 @@ private object TimeMapper : AirbyteValueIdentityMapper() {
         try {
             if (value is TimeValue) {
                 return TimeValue(OffsetTime.parse(value.value).toLocalTime().toString()) to context
+            } else {
+                logger.warn { "Expected a TimeValue, got: $value, $context" }
             }
         } catch (e: Exception) {
             // swallow exceptions
-            logger.warn { "Found non-time value when we expected a TimeValue: $value, $context" }
+            logger.warn(e) { "Failed to parse TimeValue: $value, $context" }
         }
         return value to context
     }
