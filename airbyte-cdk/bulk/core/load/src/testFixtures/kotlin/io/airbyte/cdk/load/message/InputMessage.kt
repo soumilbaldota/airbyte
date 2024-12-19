@@ -35,7 +35,7 @@ data class InputRecord(
         changes: MutableList<Meta.Change> = mutableListOf(),
     ) : this(
         stream = DestinationStream.Descriptor(namespace, name),
-        data = JsonToAirbyteValue().convert(data.deserializeToNode(), ObjectTypeWithoutSchema),
+        data = JsonToAirbyteValue().convert(data.deserializeToNode()),
         emittedAtMs = emittedAtMs,
         meta = Meta(changes),
         serialized = "",

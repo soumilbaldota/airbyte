@@ -393,10 +393,7 @@ class DestinationMessageFactory(
                 } else {
                     DestinationRecord(
                         stream = stream.descriptor,
-                        data =
-                            message.record.data?.let {
-                                JsonToAirbyteValue().convert(it, stream.schema)
-                            }
+                        data = message.record.data?.let { JsonToAirbyteValue().convert(it) }
                                 ?: ObjectValue(linkedMapOf()),
                         emittedAtMs = message.record.emittedAt,
                         meta =
