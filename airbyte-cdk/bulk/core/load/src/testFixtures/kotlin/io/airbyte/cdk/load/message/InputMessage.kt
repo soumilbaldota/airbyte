@@ -6,7 +6,6 @@ package io.airbyte.cdk.load.message
 
 import io.airbyte.cdk.load.command.DestinationStream
 import io.airbyte.cdk.load.data.AirbyteValue
-import io.airbyte.cdk.load.data.ObjectTypeWithoutSchema
 import io.airbyte.cdk.load.data.json.JsonToAirbyteValue
 import io.airbyte.cdk.load.data.json.toJson
 import io.airbyte.cdk.load.message.CheckpointMessage.Checkpoint

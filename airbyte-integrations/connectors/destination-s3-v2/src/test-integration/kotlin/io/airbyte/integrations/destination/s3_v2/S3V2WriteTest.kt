@@ -106,7 +106,7 @@ class S3V2WriteTestJsonGzip :
 class S3V2WriteTestCsvUncompressed :
     S3V2WriteTest(
         S3V2TestUtils.CSV_UNCOMPRESSED_CONFIG_PATH,
-        TODO(),
+        JsonExpectedRecordMapper,
         stringifySchemalessObjects = false,
         promoteUnionToObject = false,
         preserveUndeclaredFields = true,
@@ -116,7 +116,7 @@ class S3V2WriteTestCsvUncompressed :
 class S3V2WriteTestCsvRootLevelFlattening :
     S3V2WriteTest(
         S3V2TestUtils.CSV_ROOT_LEVEL_FLATTENING_CONFIG_PATH,
-        TODO(),
+        JsonExpectedRecordMapper,
         stringifySchemalessObjects = false,
         promoteUnionToObject = false,
         preserveUndeclaredFields = false,
@@ -128,7 +128,7 @@ class S3V2WriteTestCsvRootLevelFlattening :
 class S3V2WriteTestCsvGzip :
     S3V2WriteTest(
         S3V2TestUtils.CSV_GZIP_CONFIG_PATH,
-        TODO(),
+        JsonExpectedRecordMapper,
         stringifySchemalessObjects = false,
         promoteUnionToObject = false,
         preserveUndeclaredFields = true,
