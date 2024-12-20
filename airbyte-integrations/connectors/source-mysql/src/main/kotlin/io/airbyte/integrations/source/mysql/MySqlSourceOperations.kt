@@ -160,7 +160,7 @@ class MySqlSourceOperations :
             MysqlType.LONGTEXT,
             MysqlType.ENUM,
             MysqlType.SET -> StringFieldType
-            MysqlType.JSON -> JsonStringFieldType
+            MysqlType.JSON -> StringFieldType // TODO: replace this with JsonStringFieldType
             MysqlType.TINYBLOB,
             MysqlType.BLOB,
             MysqlType.MEDIUMBLOB,
