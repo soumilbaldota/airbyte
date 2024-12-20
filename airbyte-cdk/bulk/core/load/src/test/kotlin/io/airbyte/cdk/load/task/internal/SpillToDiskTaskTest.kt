@@ -11,7 +11,7 @@ import io.airbyte.cdk.load.command.MockDestinationConfiguration
 import io.airbyte.cdk.load.data.NullValue
 import io.airbyte.cdk.load.file.DefaultSpillFileProvider
 import io.airbyte.cdk.load.file.SpillFileProvider
-import io.airbyte.cdk.load.message.DestinationRecord
+import io.airbyte.cdk.load.message.DestinationRecordMarshaled
 import io.airbyte.cdk.load.message.DestinationStreamEvent
 import io.airbyte.cdk.load.message.DestinationStreamEventQueue
 import io.airbyte.cdk.load.message.DestinationStreamQueueSupplier
@@ -96,7 +96,6 @@ class SpillToDiskTaskTest {
                         2L,
                         StubDestinationMessageFactory.makeRecord(
                             MockDestinationCatalogFactory.stream1,
-                            "test 3",
                         ),
                     )
                 // flush strategy returns true, so we flush
@@ -136,7 +135,6 @@ class SpillToDiskTaskTest {
                         2L,
                         StubDestinationMessageFactory.makeRecord(
                             MockDestinationCatalogFactory.stream1,
-                            "test 3",
                         ),
                     )
 
@@ -254,13 +252,12 @@ class SpillToDiskTaskTest {
                         StreamRecordEvent(
                             index = index,
                             sizeBytes = Fixtures.SERIALIZED_SIZE_BYTES,
-                            record =
-                                DestinationRecord(
+                            payload =
+                                DestinationRecordMarshaled(
                                     stream = MockDestinationCatalogFactory.stream1.descriptor,
                                     data = NullValue,
                                     emittedAtMs = 0,
                                     meta = null,
-                                    serialized = "test${index}",
                                 ),
                         ),
                     ),

@@ -10,11 +10,10 @@ import io.airbyte.cdk.load.command.MockDestinationCatalogFactory
 import io.airbyte.cdk.load.data.IntegerValue
 import io.airbyte.cdk.load.message.Batch
 import io.airbyte.cdk.load.message.BatchEnvelope
-import io.airbyte.cdk.load.message.Deserializer
-import io.airbyte.cdk.load.message.DestinationMessage
-import io.airbyte.cdk.load.message.DestinationRecord
+import io.airbyte.cdk.load.message.DestinationRecordMarshaled
 import io.airbyte.cdk.load.message.MessageQueue
 import io.airbyte.cdk.load.message.MultiProducerChannel
+import io.airbyte.cdk.load.message.ProtocolMessageDeserializer
 import io.airbyte.cdk.load.state.ReservationManager
 import io.airbyte.cdk.load.state.SyncManager
 import io.airbyte.cdk.load.task.DefaultDestinationTaskLauncher
@@ -37,7 +36,7 @@ import org.junit.jupiter.api.Test
 class ProcessRecordsTaskTest {
     private lateinit var config: DestinationConfiguration
     private lateinit var diskManager: ReservationManager
-    private lateinit var deserializer: Deserializer<DestinationMessage>
+    private lateinit var deserializer: ProtocolMessageDeserializer
     private lateinit var streamLoader: StreamLoader
     private lateinit var batchAccumulator: BatchAccumulator
     private lateinit var inputQueue: MessageQueue<FileAggregateMessage>
@@ -60,14 +59,13 @@ class ProcessRecordsTaskTest {
         coEvery { streamLoader.createBatchAccumulator() } returns batchAccumulator
         launcher = mockk(relaxed = true)
         deserializer = mockk(relaxed = true)
-        coEvery { deserializer.deserialize(any()) } answers
+        coEvery { deserializer.deserialize(any(), any()) } answers
             {
-                DestinationRecord(
+                DestinationRecordMarshaled(
                     stream = MockDestinationCatalogFactory.stream1.descriptor,
                     data = IntegerValue(firstArg<String>().toLong()),
                     emittedAtMs = 0L,
                     meta = null,
-                    serialized = firstArg(),
                 )
             }
         processRecordsTaskFactory =
@@ -84,7 +82,7 @@ class ProcessRecordsTaskTest {
     class MockBatch(
         override val groupId: String?,
         override val state: Batch.State,
-        recordIterator: Iterator<DestinationRecord>
+        recordIterator: Iterator<DestinationRecordMarshaled>
     ) : Batch {
         val records = recordIterator.asSequence().toList()
     }

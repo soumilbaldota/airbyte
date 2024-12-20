@@ -21,6 +21,7 @@ import io.airbyte.protocol.models.v0.AirbyteStateStats
 import io.airbyte.protocol.models.v0.AirbyteStreamState
 import io.airbyte.protocol.models.v0.AirbyteStreamStatusTraceMessage
 import io.airbyte.protocol.models.v0.AirbyteTraceMessage
+import kotlin.reflect.KClass
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -47,7 +48,8 @@ class DestinationMessageTest {
 
     private fun convert(
         factory: DestinationMessageFactory,
-        message: AirbyteMessage
+        message: AirbyteMessage,
+        payloadType: KClass<out DestinationRecordPayload> = DestinationRecordMarshaled::class,
     ): DestinationMessage {
         val serialized = message.serializeToString()
         return factory.fromAirbyteMessage(
@@ -60,6 +62,7 @@ class DestinationMessageTest {
             // Fortunately, the protocol models are (by definition) round-trippable through JSON.
             serialized.deserializeToClass(AirbyteMessage::class.java),
             serialized,
+            payloadType,
         )
     }
 

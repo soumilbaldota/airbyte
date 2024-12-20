@@ -7,20 +7,20 @@ package io.airbyte.cdk.load.message
 import io.airbyte.cdk.load.util.deserializeToClass
 import io.airbyte.protocol.models.v0.AirbyteMessage
 import jakarta.inject.Singleton
-
-interface Deserializer<T : Any> {
-    fun deserialize(serialized: String): T
-}
+import kotlin.reflect.KClass
 
 /**
  * Converts the internal @[AirbyteMessage] to the internal @[DestinationMessage] Ideally, this would
  * not use protocol messages at all, but rather a specialized deserializer for routing.
  */
 @Singleton
-class DefaultDestinationMessageDeserializer(private val messageFactory: DestinationMessageFactory) :
-    Deserializer<DestinationMessage> {
-
-    override fun deserialize(serialized: String): DestinationMessage {
+class ProtocolMessageDeserializer(
+    private val destinationMessageFactory: DestinationMessageFactory
+) {
+    fun deserialize(
+        serialized: String,
+        recordPayloadType: KClass<out DestinationRecordPayload>
+    ): DestinationMessage {
         val airbyteMessage =
             try {
                 serialized.deserializeToClass(AirbyteMessage::class.java)
@@ -49,13 +49,10 @@ class DefaultDestinationMessageDeserializer(private val messageFactory: Destinat
                 )
             }
 
-        val internalDestinationMessage =
-            try {
-                messageFactory.fromAirbyteMessage(airbyteMessage, serialized)
-            } catch (t: Throwable) {
-                throw RuntimeException("Failed to convert AirbyteMessage to DestinationMessage", t)
-            }
-
-        return internalDestinationMessage
+        return destinationMessageFactory.fromAirbyteMessage(
+            airbyteMessage,
+            serialized,
+            recordPayloadType
+        )
     }
 }

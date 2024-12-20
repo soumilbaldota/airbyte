@@ -21,7 +21,7 @@ import io.airbyte.cdk.load.data.StringType
 import io.airbyte.cdk.load.data.StringValue
 import io.airbyte.cdk.load.data.TimestampValue
 import io.airbyte.cdk.load.data.parquet.ParquetMapperPipelineFactory
-import io.airbyte.cdk.load.message.DestinationRecord
+import io.airbyte.cdk.load.message.DestinationRecordMarshaled
 import io.airbyte.cdk.load.message.Meta
 import io.airbyte.cdk.load.message.Meta.Companion.COLUMN_NAME_AB_EXTRACTED_AT
 import io.airbyte.cdk.load.message.Meta.Companion.COLUMN_NAME_AB_GENERATION_ID
@@ -182,7 +182,7 @@ internal class IcebergUtilTest {
                 syncId = 1,
             )
         val airbyteRecord =
-            DestinationRecord(
+            DestinationRecordMarshaled(
                 stream = airbyteStream.descriptor,
                 data =
                     ObjectValue(
@@ -230,7 +230,7 @@ internal class IcebergUtilTest {
                 syncId = 1,
             )
         val airbyteRecord =
-            DestinationRecord(
+            DestinationRecordMarshaled(
                 stream = airbyteStream.descriptor,
                 data =
                     ObjectValue(
@@ -282,7 +282,7 @@ internal class IcebergUtilTest {
                 syncId = 1,
             )
         val airbyteRecord =
-            DestinationRecord(
+            DestinationRecordMarshaled(
                 stream = airbyteStream.descriptor,
                 data =
                     ObjectValue(
